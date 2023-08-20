@@ -1,0 +1,26 @@
+body {
+    margin: 0;
+}
+
+.header {
+    height: 10vh;
+    margin: 0;
+    box-shadow: 0 5px 5px 0 #b9b9b9;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+}
+
+.main {
+    display: grid;
+    gap: 30px;
+    padding: 4px;
+    grid-template-columns: repeat(auto-fit, 200px);
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.book {
+    height: 250px;
+    border-style: solid;
+}
