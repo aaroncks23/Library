@@ -15,12 +15,41 @@ body {
     display: grid;
     gap: 30px;
     padding: 4px;
-    grid-template-columns: repeat(auto-fit, 200px);
+    grid-template-columns: repeat(auto-fit, 400px);
     margin-top: 20px;
     margin-left: 20px;
 }
 
 .book {
-    height: 250px;
+    min-height: 125px;
     border-style: solid;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 30px;
+    flex: 1;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+}
+
+.author {
+    font-style: italic;
+    grid-row: 2 / 3;
+    flex: 1 1 40px;
+    display: flex;
+    justify-content: center;
+    align-items: c;
+}
+
+.pages-read {
+    grid-row: 3 / 4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
 }
