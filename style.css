@@ -53,3 +53,20 @@ body {
     align-items: center;
     flex: 1;
 }
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+li:not(:last-child) {
+    display: flex;
+    flex-direction: column;
+}
+
+form > div {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+}
+

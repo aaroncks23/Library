@@ -5,90 +5,127 @@ function Book(title, author, pages, read) {
     this.author = author,
     this.pages = pages,
     this.read = read
-}
+};
 
-const book1 = new Book("title112301238dsdsdsd","author1", 12, true);
-const book2 = new Book("title2","author2", 23, false);
+const book1 = new Book("123", "21314", 45, true);
 
 function addBookToLibrary(book) {
-    myLibrary.push(book);
-}
+  myLibrary.push(book);
+};
+
 addBookToLibrary(book1);
-addBookToLibrary(book2);
-
-const books = document.querySelector('.main');
-const fragment = new DocumentFragment();
-
-myLibrary.forEach(book => {
-    const div = document.createElement('div');
-    div.classList.add('book');
-    
-    const title = document.createElement('div');
-    title.classList.add('title');
-    title.textContent = book.title;
-    div.appendChild(title);
-    
-    const author = document.createElement('div');
-    author.classList.add('author');
-    author.textContent = book.author;
-    div.appendChild(author);
-    
-    const pagesRead = document.createElement('div');
-    pagesRead.classList.add('pages-read');
-    
-    const pages = document.createElement('div');
-    // pages.classList.add('pages');
-    pages.textContent = "Pages: " + book.pages;
-    pagesRead.appendChild(pages);
-
-    const markRead = document.createElement('div');
-    markRead.classList.add('mark-read');
-    markRead.textContent = "Mark as Read ";
-    pagesRead.appendChild(markRead);
-
-    div.appendChild(pagesRead);
-
-    fragment.appendChild(div);
-
-});
-
-books.appendChild(fragment);
-
-
-
+// addBookToLibrary(new Book("title112301238dsdsdsd","author1", 12, true));
+// addBookToLibrary(new Book("title112301238dsdsdsd","author2", 13, true));
 
 const showButton = document.getElementById("showDialog");
-const favDialog = document.getElementById("favDialog");
-const outputBox = document.querySelector("output");
-const selectEl = favDialog.querySelector("select");
-const confirmBtn = favDialog.querySelector("#confirmBtn");
+const addBookDialog = document.getElementById("addBookDialog");
+// const outputBox = document.querySelector("output");
+const form = addBookDialog.querySelector("form");
+const dialogBookTitle = document.getElementById("book_title");
+const dialogBookAuthor = document.getElementById("book_author");
+const dialogPages = document.getElementById("book_pages");
+const dialogMarkRead = document.getElementById("mark_read");
+const confirmBtn = addBookDialog.querySelector("#confirmBtn");
 
 // "Show the dialog" button opens the <dialog> modally
 showButton.addEventListener("click", () => {
-  favDialog.showModal();
+  addBookDialog.showModal();
 });
 
 // "Favorite animal" input sets the value of the submit button
-selectEl.addEventListener("change", (e) => {
-  confirmBtn.value = selectEl.value;
-});
+// dialogMarkRead.addEventListener("change", (e) => {
+//   console.log(dialogMarkRead.checked);
+//   confirmBtn.value = dialogBookTitle.checked;
+// });
 
 // "Cancel" button closes the dialog without submitting because of [formmethod="dialog"], triggering a close event.
-favDialog.addEventListener("close", (e) => {
-  outputBox.value =
-    favDialog.returnValue === "default"
-      ? "No return value."
-      : `ReturnValue: ${favDialog.returnValue}.`; // Have to check for "default" rather than empty string
-});
+// addBookDialog.addEventListener("close", (e) => {
+//   outputBox.value =
+//   addBookDialog.returnValue === "default"
+//       ? "No return value."
+//       : `ReturnValue: ${addBookDialog.returnValue}.`; // Have to check for "default" rather than empty string
+// });
 
 // Prevent the "confirm" button from the default behavior of submitting the form, and close the dialog with the `close()` method, which triggers the "close" event.
 confirmBtn.addEventListener("click", (event) => {
   event.preventDefault(); // We don't want to submit this fake form
-  favDialog.close(selectEl.value); // Have to send the select box value here.
+  addBookToLibrary(new Book(dialogBookTitle.value, dialogBookAuthor.value,dialogPages.value, dialogMarkRead.checked));
+  
+  addBookDialog.close();
+  form.reset();
+  const books = document.querySelector('.main');
+  // const fragment = new DocumentFragment();
+
+  let newBook = myLibrary[myLibrary.length-1];
+
+  const div = document.createElement('div');
+  div.classList.add('book');
+  
+  const title = document.createElement('div');
+  title.classList.add('title');
+  title.textContent = newBook.title;
+  div.appendChild(title);
+  
+  const author = document.createElement('div');
+  author.classList.add('author');
+  author.textContent = newBook.author;
+  div.appendChild(author);
+  
+  const pagesRead = document.createElement('div');
+  pagesRead.classList.add('pages-read');
+  
+  const pages = document.createElement('div');
+  // pages.classList.add('pages');
+  pages.textContent = "Pages: " + newBook.pages;
+  pagesRead.appendChild(pages);
+
+  const markRead = document.createElement('div');
+  markRead.classList.add('mark-read');
+  markRead.textContent = "Mark as Read ";
+  pagesRead.appendChild(markRead);
+
+  div.appendChild(pagesRead);
+
+  books.appendChild(div);
+
+  // fragment.appendChild(div);
+  // const fragment = new DocumentFragment();
+  
+  // myLibrary.forEach(book => {
+  //     const div = document.createElement('div');
+  //     div.classList.add('book');
+      
+  //     const title = document.createElement('div');
+  //     title.classList.add('title');
+  //     title.textContent = book.title;
+  //     div.appendChild(title);
+      
+  //     const author = document.createElement('div');
+  //     author.classList.add('author');
+  //     author.textContent = book.author;
+  //     div.appendChild(author);
+      
+  //     const pagesRead = document.createElement('div');
+  //     pagesRead.classList.add('pages-read');
+      
+  //     const pages = document.createElement('div');
+  //     // pages.classList.add('pages');
+  //     pages.textContent = "Pages: " + book.pages;
+  //     pagesRead.appendChild(pages);
+  
+  //     const markRead = document.createElement('div');
+  //     markRead.classList.add('mark-read');
+  //     markRead.textContent = "Mark as Read ";
+  //     pagesRead.appendChild(markRead);
+  
+  //     div.appendChild(pagesRead);
+  
+  //     fragment.appendChild(div);
+  
+  // });
+  
+  // books.appendChild(fragment);
 });
-
-
-
 
 // 1) addBookToLibrary() -> takes user input and store new book objects in myLibrary array
 
