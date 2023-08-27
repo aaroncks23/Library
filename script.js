@@ -82,7 +82,13 @@ confirmBtn.addEventListener("click", (event) => {
   const markRead = document.createElement('div');
   markRead.classList.add('mark-read');
   markRead.textContent = "Mark as Read ";
+  
+  const markReadCheckbox = document.createElement('input');
+  markReadCheckbox.type = "checkbox";
+  markRead.appendChild(markReadCheckbox);
+  
   pagesRead.appendChild(markRead);
+
 
   div.appendChild(pagesRead);
 
