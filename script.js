@@ -5,12 +5,12 @@ function Book(title, author, pages, read) {
     this.author = author,
     this.pages = pages,
     this.read = read
+
 };
 
 function addBookToLibrary(book) {
   myLibrary.push(book);
 };
-
 
 const showButton = document.getElementById("showDialog");
 const addBookDialog = document.getElementById("addBookDialog");
@@ -26,29 +26,15 @@ showButton.addEventListener("click", () => {
   addBookDialog.showModal();
 });
 
-// "Favorite animal" input sets the value of the submit button
-// dialogMarkRead.addEventListener("change", (e) => {
-//   console.log(dialogMarkRead.checked);
-//   confirmBtn.value = dialogBookTitle.checked;
-// });
-
-// "Cancel" button closes the dialog without submitting because of [formmethod="dialog"], triggering a close event.
-// addBookDialog.addEventListener("close", (e) => {
-//   outputBox.value =
-//   addBookDialog.returnValue === "default"
-//       ? "No return value."
-//       : `ReturnValue: ${addBookDialog.returnValue}.`; // Have to check for "default" rather than empty string
-// });
-
 // Prevent the "confirm" button from the default behavior of submitting the form, and close the dialog with the `close()` method, which triggers the "close" event.
 confirmBtn.addEventListener("click", (event) => {
   event.preventDefault(); // We don't want to submit this fake form
+  
   addBookToLibrary(new Book(dialogBookTitle.value, dialogBookAuthor.value, dialogPages.value, dialogMarkRead.checked));
   addBookDialog.close();
   const books = document.querySelector('.main');
-  // const fragment = new DocumentFragment();
 
-  let newBook = myLibrary[myLibrary.length-1];
+  const newBook = myLibrary[myLibrary.length-1];
 
   const div = document.createElement('div');
   div.classList.add('book');
@@ -67,7 +53,6 @@ confirmBtn.addEventListener("click", (event) => {
   pagesRead.classList.add('pages-read');
   
   const pages = document.createElement('div');
-  // pages.classList.add('pages');
   pages.textContent = "Pages: " + newBook.pages;
   pagesRead.appendChild(pages);
 
@@ -83,50 +68,17 @@ confirmBtn.addEventListener("click", (event) => {
 
   div.appendChild(pagesRead);
 
-  
+  const removeButton = document.createElement('button');
+  removeButton.textContent = "Remove";
+  removeButton.addEventListener('click', (e) => {
+    const bookToRemove = e.target.parentNode;
+    const index = Array.from(books.childNodes).indexOf(bookToRemove);
+    books.removeChild(bookToRemove);
+    myLibrary.splice(index, 1);
+  });
 
-  books.appendChild(div);
-  form.reset();
-
-  // fragment.appendChild(div);
-  // const fragment = new DocumentFragment();
-  
-  // myLibrary.forEach(book => {
-  //     const div = document.createElement('div');
-  //     div.classList.add('book');
-      
-  //     const title = document.createElement('div');
-  //     title.classList.add('title');
-  //     title.textContent = book.title;
-  //     div.appendChild(title);
-      
-  //     const author = document.createElement('div');
-  //     author.classList.add('author');
-  //     author.textContent = book.author;
-  //     div.appendChild(author);
-      
-  //     const pagesRead = document.createElement('div');
-  //     pagesRead.classList.add('pages-read');
-      
-  //     const pages = document.createElement('div');
-  //     // pages.classList.add('pages');
-  //     pages.textContent = "Pages: " + book.pages;
-  //     pagesRead.appendChild(pages);
-  
-  //     const markRead = document.createElement('div');
-  //     markRead.classList.add('mark-read');
-  //     markRead.textContent = "Mark as Read ";
-  //     pagesRead.appendChild(markRead);
-  
-  //     div.appendChild(pagesRead);
-  
-  //     fragment.appendChild(div);
-  
-  // });
-  
-  // books.appendChild(fragment);
-});
-
-// 5) add button on each book display to remove book from library.
-// need to associate DOM elements with the actual book objects in some way.
-// solution is giving them a data-attribute that corresponds to the index of the library array.
+    div.appendChild(removeButton);
+    
+    books.appendChild(div);
+    form.reset();
+  });
